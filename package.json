@@ -1,6 +1,6 @@
 {
   "name": "cli-middleware",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Middleware execution for the command module",
   "author": "muji <noop@xpm.io>",
   "repository": {
