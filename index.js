@@ -40,15 +40,13 @@ function run(opts) {
     , scope = opts.scope || this
     , syslog = opts.syslog
     , bail = opts.bail
-    , errors = scope.errors || opts.errors || {}
+    , errs = scope.errors || opts.errors || {}
     , ewrap = scope.wrap || opts.wrap || wrap
     , eraise = scope.raise || opts.raise || raise
     , intercepts = typeof opts.intercept === 'function'
     , emits = typeof scope.emit === 'function'
     , errhandler = opts.intercept
     , dbg = opts.debug || debug;
-
-  //console.log('errors %j', errors);
 
   /**
    *  Execute middleware.
@@ -108,14 +106,13 @@ function run(opts) {
         syslog.trace('middleware/end: %s', name);
       }
       var er, runDefaultRaise;
-      //console.log('next err %s', err.message);
       if(err === null) {
-        errors.cause = ewrap.call(scope, errors.EMIDDLEWARE_ABORT);
+        errors.cause = ewrap.call(scope, errs.EMIDDLEWARE_ABORT);
         // halt processing, complete never fires
         return;
       }else if(err === true || err && err.bail === true) {
         errors.cause = err && err.bail
-          ? err : ewrap.call(scope, errors.EMIDDLEWARE_BAIL || 'bail');
+          ? err : ewrap.call(scope, errs.EMIDDLEWARE_BAIL);
         if(err && err.bail) {
           errors.list.push(err);
         }
