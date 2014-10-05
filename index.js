@@ -94,9 +94,9 @@ function run(opts) {
       err = err ||
         (errs.length ? errs[errs.length - 1] : (errors.cause || undefined));
       if(emits && !cb) {
-        return scope.emit('complete', req, err);
+        return scope.emit('complete', err, req);
       }
-      if(cb) return cb.call(scope, req, err);
+      if(cb) return cb.call(scope, err, req);
     }
 
     req.complete = complete;

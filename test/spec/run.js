@@ -35,7 +35,6 @@ describe('cli-middleware:', function() {
     done();
   });
 
-
   it('should run closure and invoke callback', function(done) {
     var called = false;
     var list = [
@@ -46,7 +45,7 @@ describe('cli-middleware:', function() {
     ]
     var opts = {list: list};
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       expect(called).to.eql(true);
       done();
     });
@@ -66,7 +65,7 @@ describe('cli-middleware:', function() {
     ]
     var opts = {list: list};
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       expect(called).to.eql([true, true]);
       done();
     });
@@ -81,7 +80,7 @@ describe('cli-middleware:', function() {
     ]
     var opts = {list: list, bail: true, throws: false};
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       expect(req.argv).to.be.an('array');
       expect(req.complete).to.be.a('function');
       expect(req.errors).to.be.an('object');
@@ -138,7 +137,7 @@ describe('cli-middleware:', function() {
       }
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       done();
     });
   });
@@ -156,7 +155,7 @@ describe('cli-middleware:', function() {
       raise: function(){thrown = true},
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       expect(thrown).to.eql(true);
       done();
     });
@@ -178,7 +177,7 @@ describe('cli-middleware:', function() {
       }
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       done();
     });
   });
@@ -194,7 +193,7 @@ describe('cli-middleware:', function() {
       throws: false
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       done();
     });
   });
@@ -212,7 +211,7 @@ describe('cli-middleware:', function() {
       throws: false
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       done();
     });
   });
@@ -229,7 +228,7 @@ describe('cli-middleware:', function() {
       throws: false
     };
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
       // this should never get called
       done();
     });
@@ -248,7 +247,7 @@ describe('cli-middleware:', function() {
       scope: scope,
       throws: false
     };
-    scope.on('complete', function oncomplete() {
+    scope.on('complete', function oncomplete(err, req) {
       done();
     })
     var closure = middleware(opts);
@@ -268,7 +267,7 @@ describe('cli-middleware:', function() {
 
     var req = {errors: {list: []}};
     var closure = middleware(opts);
-    closure([], req, function(req) {
+    closure([], req, function(err, req) {
       done();
     });
   });
