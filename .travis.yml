@@ -2,20 +2,20 @@ language: node_js
 sudo: false
 branches:
   except:
-    - develop
+  - develop
 script: npm run cover
 node_js:
-  - '4.1'
-  - '4.0'
-  - '0.12'
-  - stable
+- '4.1'
+- '4.0'
+- '0.12'
+- stable
 after_success:
-  - npm run coveralls
+- npm run coveralls
 deploy:
   provider: npm
   email: freeformsystems@gmail.com
   api_key:
-    secure: Rt5CcJgcO0J7uEJxCPCI867EEIhqTNxnViF/dhfC1HTYuWp4hUXvmf3LlP6BMQOmMRQEisT7PuxQqrSHZEYsz4Xt1Fcw65+9j5qU/pWKsP3b7A6y8CiuMkMyZnrnA2jOVTHzfdd++QRHgHjDyaYNcVZQQYwKgtXlcJ9OWqFF0ikThaHtqfrebXgO+Dsp3qNAL17Sdqv4Rqu4FMVB7Yv7Lr4OHffXLzhQhJIxLaAFKnBaQgTuHSikZ+Vw6Jy+I0eQW+zNfYidbGyEx/MdKtnyaA49Wdbaiu5eZWDDAUbhQqOO28YVxd0BEVstxLRdeDW3wlNDkpHOcEdZlASGvPuB9BSKQS6ssXKd93a9AKZwkTVQfadR3XeAAoHm19lElyVlbunPOkupkN4wYRiBUnKEGsk6rplP/UFUjSE8BQGe2eMSxSKTc79kbyG1TUcziOdqwHvbtBddjjmi7Akn/Y+4CF5/Y28Wx0z6EjFUyt8rzMxO5BwJix9fsnjT3Yws9Qx4+CHgP7b9EV6hRGV6ym1HfnRA+sF2nZBVHBcyMEKMSx3CWFjzQiihwzaSkl0PRFLdls/1EoO+8/QjL6dEPIOfZkg9hBaeLRe3p+bHdI+b5LfCr6iuD0Y9uzNUOBnxnMUUx0SgnOSmFbzLJ6EyeWdlkWN/Vp754mVTNURw/KaTmR4=
+    secure: gIkDlAZC+ATsSa+7WQwmg/BzR7kpvphKyXJrIPfBpVwa1JhnsY8d8cWSHNxboDQGinyOoW2V8FDa5gMqyC6EyoFyGuB/n6udP+lKky26ysUhy+c943pJTTwb6XAfCWXrj9KFvau7Pl9cTlcJOpAUjLqb4+BGrTWoshrbS8lmhE0n6cEf2ZDR3eXjF+as5RDR8nIz9xUop90d/oTEKxrK/aeUHghsoMmrgsusV0vem0+PehQe2b9quFvRz0xr3yGlRNiZBgyqLAd0QFh0xWFU13KlvOpZpX+7w1jV1ojCk5X+suJ/yf5z8yHqhaj5QR2E/M6YwyGW1GFVDrlTfvJYWg/d1XB6fY923p0c9MbrJLhkoptDrPLogvLJRkK+5Uy/lsz6rPodOCDaJg/KW23dCFAtuJWQ+QXDdo7M6NMIek+0ZaLWosdwJObXw/+fke13ZnIa9tYrzy4hCFyMYdtL5XhA8HODUZST1dC/nlDptKkkb1qJjBrzzEkWifU9HSC5B8vZSHhNjfVDpIYvzHAgtLhZh5hGrcSehl3aAt6GNW6fHwCpK02+CkzZEYlCCR4RWgfYk2L8YocfsFR+J+nWUmnZpQwT4xeRPHl/lbNLdTIS33DDNy8+R9pqsnLXycSGiXWZvYJ92LHxxPrKwIf97qK/u3z98DyBhSP0P7v7+DA=
   on:
     tags: true
     repo: cli-kit/cli-middleware
