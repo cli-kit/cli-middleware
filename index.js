@@ -184,5 +184,6 @@ function run(opts) {
 
 run.wrap = wrap;
 run.raise = raise;
+run.funcname = funcname;
 
 module.exports = run;
