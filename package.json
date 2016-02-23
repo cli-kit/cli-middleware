@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "description": "Middleware execution for the command module",
   "author": "muji <noop@xpm.io>",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/freeformsystems/cli-middleware"
+    "url": "https://github.com/cli-kit/cli-middleware"
   },
   "bugs": {
-    "url": "https://github.com/freeformsystems/cli-middleware/issues",
+    "url": "https://github.com/cli-kit/cli-middleware/issues",
     "email": "muji <noop@xpm.io>"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/freeformsystems/cli-middleware/blob/master/LICENSE"
+      "url": "https://github.com/cli-kit/cli-middleware/blob/master/LICENSE"
     }
   ],
   "keywords": [
@@ -22,19 +23,23 @@
     "middleware"
   ],
   "dependencies": {
-    "cli-util": "^1.1.23"
+    "cli-util": "~1.1.27"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
-    "istanbul": "^0.3.2",
-    "mocha": "^1.21.4"
+    "chai": "~3.5.0",
+    "istanbul": "~0.4.2",
+    "mocha": "~2.4.5",
+    "coveralls": "~2.11.6"
   },
   "engine": [
     "node >= 0.10.21"
   ],
   "scripts": {
+    "lint": "jshint . && jscs .",
     "readme": "mdp --force -v",
-    "test": "istanbul cover _mocha -- -u bdd --recursive --bail --reporter list -A test/spec"
+    "test": "mocha ${SPEC:-test/spec}",
+    "cover": "istanbul cover _mocha -- ${SPEC:-test/spec}",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "mdp": {
     "title": "Middleware",
@@ -43,7 +48,7 @@
     "require": "lib",
     "links": "links.md",
     "toc": "Table of Contents",
-    "base": "https://github.com/freeformsystems/cli-middleware",
+    "base": "https://github.com/cli-kit/cli-middleware",
     "partial": [
       {
         "inc": [

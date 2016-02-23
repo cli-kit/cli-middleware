@@ -10,6 +10,8 @@ describe('cli-middleware:', function() {
   it('should run closure', function(done) {
     var list = [
       function mockmiddle(req, next) {
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         done();
       }
     ]
@@ -22,7 +24,8 @@ describe('cli-middleware:', function() {
     var list = [];
     var opts = {list: list};
     var closure = middleware(opts);
-    closure([], function(req) {
+    closure([], function(err, req) {
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -47,6 +50,7 @@ describe('cli-middleware:', function() {
     var closure = middleware(opts);
     closure([], function(err, req) {
       expect(called).to.eql(true);
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -56,10 +60,14 @@ describe('cli-middleware:', function() {
     var list = [
       function mockmiddle1(req, next) {
         called.push(true);
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         next();
       },
       function mockmiddle2(req, next) {
         called.push(true);
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         next();
       }
     ]
@@ -67,6 +75,8 @@ describe('cli-middleware:', function() {
     var closure = middleware(opts);
     closure([], function(err, req) {
       expect(called).to.eql([true, true]);
+      expect(err).to.eql(null);
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -98,6 +108,8 @@ describe('cli-middleware:', function() {
         next('mock error');
       },
       function mockerrhandler(req, next) {
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         done();
       }
     ]
@@ -110,9 +122,13 @@ describe('cli-middleware:', function() {
   it('should use syslog', function(done) {
     var list = [
       function mocksyslog1(req, next) {
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         next();
       },
       function mocksyslog2(req, next) {
+        expect(req).to.be.an('object');
+        expect(next).to.be.a('function');
         done();
       }
     ]
@@ -132,12 +148,14 @@ describe('cli-middleware:', function() {
       list: list,
       throws: true,
       raise: function(){},
-      intercept: function(req, next, err, source, parameters, cause) {
+      intercept: function(/*req, next, err, source, parameters, cause*/) {
         return true;
       }
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.eql('mock error');
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -152,10 +170,12 @@ describe('cli-middleware:', function() {
     var opts = {
       list: list,
       throws: true,
-      raise: function(){thrown = true},
+      raise: function(){thrown = true}
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.eql('mock error');
+      expect(req).to.be.an('object');
       expect(thrown).to.eql(true);
       done();
     });
@@ -171,13 +191,15 @@ describe('cli-middleware:', function() {
       list: list,
       throws: true,
       raise: function(){},
-      intercept: function(req, next, err, source, parameters, cause) {
+      intercept: function(req, next, err/*, source, parameters, cause*/) {
         req.complete(err)
         return false;
       }
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.be.an.instanceof(Error);
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -194,6 +216,8 @@ describe('cli-middleware:', function() {
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.eql(true);
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -212,6 +236,8 @@ describe('cli-middleware:', function() {
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.be.an.instanceof(Error);
+      expect(req).to.be.an('object');
       done();
     });
   });
@@ -229,6 +255,8 @@ describe('cli-middleware:', function() {
     };
     var closure = middleware(opts);
     closure([], function(err, req) {
+      expect(err).to.eql(null);
+      expect(req).to.be.an('object');
       // this should never get called
       done();
     });
@@ -248,6 +276,8 @@ describe('cli-middleware:', function() {
       throws: false
     };
     scope.on('complete', function oncomplete(err, req) {
+      expect(err).to.eql(null);
+      expect(req).to.be.an('object');
       done();
     })
     var closure = middleware(opts);
@@ -268,6 +298,8 @@ describe('cli-middleware:', function() {
     var req = {errors: {list: []}};
     var closure = middleware(opts);
     closure([], req, function(err, req) {
+      expect(err).to.be.an.instanceof(Error);
+      expect(req).to.be.an('object');
       done();
     });
   });

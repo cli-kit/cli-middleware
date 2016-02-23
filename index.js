@@ -10,9 +10,13 @@ var debug = !!process.env.CLI_TOOLKIT_DEBUG;
  *  @param parameters Message replacement parameters.
  *  @param cause An error that caused this error.
  */
-function wrap(err, parameters, cause) {
-  if(err instanceof Error) return err;
-  if(typeof err === 'string') return new Error(err);
+function wrap(err/*, parameters, cause*/) {
+  if(err instanceof Error) {
+    return err;
+  }
+  if(typeof err === 'string') {
+    return new Error(err);
+  }
   return new Error('unknown middleware error');
 }
 
@@ -24,7 +28,9 @@ function wrap(err, parameters, cause) {
  *  @param cause An error that caused this error.
  */
 function raise(err, parameters, cause) {
-  if(!(err instanceof Error)) err = wrap(err, parameters, cause);
+  if(!(err instanceof Error)) {
+    err = wrap(err, parameters, cause);
+  }
   throw err;
 }
 
@@ -62,8 +68,9 @@ function run(opts) {
     }
 
     var i = 0
-      , req = req || {}
       , name;
+
+    req = req || {}
 
     req.argv = req.argv || args;
 
@@ -94,14 +101,17 @@ function run(opts) {
       err = err ||
         (errs.length ? errs[errs.length - 1] : (errors.cause || undefined));
       if(emits && !cb) {
-        return scope.emit('complete', err, req);
+        return scope.emit('complete', err || null, req);
       }
-      if(cb) return cb.call(scope, err, req);
+      if(cb) {
+        return cb.call(scope, err || null, req);
+      }
     }
 
     req.complete = complete;
 
     function next(err, parameters, e) {
+      //console.log('middleware/end: %s', name);
       if(syslog && dbg) {
         syslog.trace('middleware/end: %s', name);
       }
@@ -153,7 +163,11 @@ function run(opts) {
         return complete(er || err);
       }
     }
-    list.length ? exec() : complete();
+    if(list.length) {
+      exec() 
+    }else{
+      complete();
+    }
   }
 }
 
