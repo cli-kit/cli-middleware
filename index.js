@@ -1,7 +1,18 @@
-var utils = require('cli-util')
-  , funcname = utils.funcname;
-
 var debug = !!process.env.CLI_TOOLKIT_DEBUG;
+
+/**
+ *  Utility used to determine the name of a function.
+ *
+ *  @param func The function.
+ *
+ *  @return The string name of the function; null if anonymous.
+ */
+function funcname(func) {
+  if(typeof func !== 'function') {
+    return null;
+  }
+  return func.name || null;
+}
 
 /**
  *  Default error wrapping implementation.

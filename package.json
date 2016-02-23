@@ -22,9 +22,6 @@
     "cli",
     "middleware"
   ],
-  "dependencies": {
-    "cli-util": "~1.1.27"
-  },
   "devDependencies": {
     "chai": "~3.5.0",
     "istanbul": "~0.4.2",
