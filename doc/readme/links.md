@@ -1,2 +1,2 @@
-[toolkit]: https://github.com/freeformsystems/cli-toolkit
-[command]: https://github.com/freeformsystems/cli-command
+[toolkit]: https://github.com/cli-kit/cli-toolkit
+[command]: https://github.com/cli-kit/cli-command

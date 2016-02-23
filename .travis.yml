@@ -2,15 +2,15 @@ language: node_js
 sudo: false
 branches:
   except:
-  - develop
+    - develop
 script: npm run cover
 node_js:
-- '4.1'
-- '4.0'
-- '0.12'
-- stable
+  - '4.1'
+  - '4.0'
+  - '0.12'
+  - stable
 after_success:
-- npm run coveralls
+  - npm run coveralls
 deploy:
   provider: npm
   email: freeformsystems@gmail.com
