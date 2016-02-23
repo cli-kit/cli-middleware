@@ -242,10 +242,10 @@ describe('cli-middleware:', function() {
     });
   });
 
-  it('should abort processing on null error', function(done) {
+  it('should abort processing on EABORT error', function(done) {
     var list = [
       function mockabort(req, next) {
-        next(null);
+        next(middleware.EABORT);
         done();
       }
     ]
@@ -261,7 +261,6 @@ describe('cli-middleware:', function() {
       done();
     });
   });
-
 
   it('should emit complete on scope', function(done) {
     var scope = new events.EventEmitter();

@@ -1,4 +1,5 @@
-var debug = !!process.env.CLI_TOOLKIT_DEBUG;
+var debug = !!process.env.CLI_TOOLKIT_DEBUG
+  , EABORT = new Error('middleware aborted')
 
 /**
  *  Utility used to determine the name of a function.
@@ -122,12 +123,11 @@ function run(opts) {
     req.complete = complete;
 
     function next(err, parameters, e) {
-      //console.log('middleware/end: %s', name);
       if(syslog && dbg) {
         syslog.trace('middleware/end: %s', name);
       }
       var er, runDefaultRaise;
-      if(err === null) {
+      if(err === EABORT) {
         errors.cause = ewrap.call(scope, errs.EMIDDLEWARE_ABORT);
         // halt processing, complete never fires
         return;
@@ -185,5 +185,7 @@ function run(opts) {
 run.wrap = wrap;
 run.raise = raise;
 run.funcname = funcname;
+
+run.EABORT = EABORT;
 
 module.exports = run;
